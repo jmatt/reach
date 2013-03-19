@@ -41,7 +41,7 @@ def reachabilityCallback(target, flags, info):
     """
     NSLog("reachability!")
     NSLog("flags = %s" % str(flags))
-    NSLog("kSCNetworkFlagsInterventionRequired = %s" 
+    NSLog("kSCNetworkFlagsInterventionRequired = %s"
           % (flags & kSCNetworkFlagsInterventionRequired))
     note = None
     if distributed:
@@ -56,19 +56,25 @@ class Reachability(NSObject):
     Handle reachability notifications from the network.
     """
 
-    def startNotifier(self, callback = reachabilityCallback, dist = False):
+    def startNotifier(self, callback=reachabilityCallback, distributed_=False):
         """
         Start notifications with callback.
 
         By default use reachabilityCallback which will fire a
         kReachabilityChangedNotification event using the defined variable.
         """
-        self.dist = dist
+        self.distributed = distributed_
+        global distributed
+        distributed = distributed_
+
         self.loop = CFRunLoopGetCurrent()
-        
-        self.target = SCNetworkReachabilityCreateWithAddress(None, (INET_ADDR, 80))
-        SCNetworkReachabilitySetCallback(self.target, callback, INET_ADDR)
-        
+
+        self.target = SCNetworkReachabilityCreateWithAddress(None,
+                                                             (INET_ADDR, 80))
+        SCNetworkReachabilitySetCallback(self.target,
+                                         callback,
+                                         INET_ADDR)
+
         ok, flags = SCNetworkReachabilityGetFlags(self.target, None)
 
         if ok:
