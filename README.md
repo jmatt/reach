@@ -1,7 +1,7 @@
 ---
 title: Reach
 description: A python library that provides Apple's objective-c reachability.
-authors: J. Matt Peterson
+author: J. Matt Peterson
 created:  2013 Mar 19
 modified: 2013 Mar 19
 
