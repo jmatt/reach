@@ -9,6 +9,7 @@ from reach.version import get_version
 readme = open('README.md').read()
 
 long_description = """
+reach %s
 Python is now reachable. A python library that provides Apple's
 objective-c reachability.
 
