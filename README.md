@@ -51,3 +51,8 @@ default_center.addObserver_selector_name_object_(
             None)
 reachability.startNotifier()
 ```
+
+Tasks
+-----
+
+- [ ] Implement additional functionality from [Apple's Reachability code](http://developer.apple.com/library/ios/samplecode/Reachability/Listings/Classes_Reachability_m.html).
