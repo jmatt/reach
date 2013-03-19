@@ -55,4 +55,5 @@ reachability.startNotifier()
 Tasks
 -----
 
+- [X] Move Reachability to it's own library.
 - [ ] Implement additional functionality from [Apple's Reachability code](http://developer.apple.com/library/ios/samplecode/Reachability/Listings/Classes_Reachability_m.html).
