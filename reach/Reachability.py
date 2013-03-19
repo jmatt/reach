@@ -11,7 +11,7 @@ See: http://developer.apple.com/library/ios/#samplecode\
 
 """
 from AppKit import NSObject, NSLog, NSWorkspace
-from Foundation import NSNotificationCenter
+from Foundation import NSNotificationCenter, NSDistributedNotificationCenter
 from PyObjCTools import AppHelper
 from SystemConfiguration import CFRunLoopGetCurrent, kCFRunLoopCommonModes,\
     kCFRunLoopDefaultMode, kSCNetworkFlagsInterventionRequired,\
@@ -25,7 +25,7 @@ INET_ADDR = "8.8.8.8"
 kReachabilityChangedNotification = "kNetworkReachabilityChangedNotification"
 
 
-distributed = False
+use_distributed = False
 
 
 def reachabilityCallback(target, flags, info):
@@ -44,28 +44,27 @@ def reachabilityCallback(target, flags, info):
     NSLog("kSCNetworkFlagsInterventionRequired = %s"
           % (flags & kSCNetworkFlagsInterventionRequired))
     note = None
-    if distributed:
+    if use_distributed:
         note = NSDistributedNotificationCenter.defaultCenter()
     else:
         note = NSNotificationCenter.defaultCenter()
     note.postNotificationName_object_(kReachabilityChangedNotification, info)
 
 
-class Reachability(NSObject):
+class Reachability(object):
     """
     Handle reachability notifications from the network.
     """
 
-    def startNotifier(self, callback=reachabilityCallback, distributed_=False):
+    def startNotifier(self, callback=reachabilityCallback, distributed=False):
         """
         Start notifications with callback.
 
         By default use reachabilityCallback which will fire a
         kReachabilityChangedNotification event using the defined variable.
         """
-        self.distributed = distributed_
-        global distributed
-        distributed = distributed_
+        global use_distributed
+        use_distributed = distributed
 
         self.loop = CFRunLoopGetCurrent()
 
@@ -97,8 +96,8 @@ class Reachability(NSObject):
 
 
 def main():
-    reachability = Reachability.new()
-    reachability.startNotifier()
+    reachability = Reachability()
+    reachability.startNotifier(distributed=True)
     AppHelper.runConsoleEventLoop(installInterrupt=True)
 
 

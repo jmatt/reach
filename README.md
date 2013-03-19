@@ -19,7 +19,7 @@ from Foundation import NSNotificationCenter
 from AppKit import NSLog, NSObject, NSWorkspace
 from reach.Reachability import Reachability, kReachabilityChangedNotification
 
-reachability = Reachability.new()
+reachability = Reachability()
 
 class ReachabilityHandler(NSObject):
     """
