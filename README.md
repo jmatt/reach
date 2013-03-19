@@ -27,7 +27,7 @@ class ReachabilityHandler(NSObject):
     """
     def handleChange_(self, notification):
         """
-        Handle Reachability changes with the CartelApp.
+        Handle Reachability changes here.
         """
         NSLog("change!")
 
