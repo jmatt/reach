@@ -22,7 +22,7 @@ To install use pip install git+git://github.com/jmatt/reach.git
 ----
 
 For more information, please see: https://github.com/jmatt/reach
-""" % (get_version('short'), readme)
+""" % (get_version('verbose'), readme)
 
 
 setup(
